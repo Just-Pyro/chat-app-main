@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="style/index.css"> -->
+    <title>Document</title>
+    <style>
+        #showRegister, #showLogin {
+            color: blue;
+            transition: text-decoration ease-in-out 0.15s;
+        }
+
+        #showRegister:hover, #showLogin:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-dark"> 
+    <div class="container mt-2 pt-5 px-5">
+        <div class="row">
+            <div class="col"></div>
+            <div id="login" class="col-md-4 mt-5 pt-5">
+                <div class="card shadow">
+                    <h1 class="d-flex justify-content-center py-3">LOGIN</h1>
+                    <div class="card-body">
+                        <form action="" method="post" class="px-2">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+                                <label for="loginEmail">Email address</label>
+                              </div>
+                              <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                                <label for="loginPassword">Password</label>
+                              </div>
+                              <div class="text-center">
+                                <button id="loginButton" type="button" class="btn btn-outline-secondary">Login</button>
+                              </div>
+                        </form>
+                        <div class="text-center my-3">
+                            <p>No account? | <span id="showRegister">Create Account</span></p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div id="register" class="col-md-4 mt-5 pt-5" style="display: none;">
+                <div class="card shadow">
+                    <h3 class="d-flex justify-content-center py-3 fw-bold fst-italic">Register</h3>
+                    <div class="card-body">
+                        <form action="" method="post" class="px-2">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="registerUsername" placeholder="name@example.com">
+                                <label for="registerUsername">Username</label>
+                              </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="registerEmail" placeholder="name@example.com">
+                                <label for="registerEmail">Email address</label>
+                              </div>
+                              <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="registerPassword" placeholder="Password">
+                                <label for="registerPassword">Password</label>
+                              </div>
+                              <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Password">
+                                <label for="confirmPassword">Password</label>
+                              </div>
+                              <div class="text-center">
+                                <button id="registerButton" type="button" class="btn btn-outline-secondary">Register</button>
+                              </div>
+                        </form>
+                        <div class="text-center my-3">
+                            <p>Already have an account? | <span id="showLogin">Login</span></p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('showRegister').addEventListener('click', function() {
+            document.getElementById('register').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+        });
+
+        document.getElementById('showLogin').addEventListener('click', showLogin);
+
+        function showLogin(){
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('register').style.display = 'none';
+        }
+
+        function Login() {
+            var email = document.getElementById('loginEmail').value;
+            var password = document.getElementById('loginPassword').value;
+
+            var registeredEmail = localStorage.getItem('email');
+            var registeredPassword = localStorage.getItem('password');
+
+            if(email == registeredEmail && password == registeredPassword){
+                window.location.href = "/chat";
+            }else{
+                alert("Incorrect Username or Password!");
+            }
+        }
+
+        function Register() {
+            var username = document.getElementById('registerUsername').value;
+            var email = document.getElementById('registerEmail').value;
+            var password = document.getElementById('registerPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            console.log('Register Username', username);
+            console.log('Register Email:', email);
+            console.log('Register Password:', password);
+            console.log('Confirm Password:', confirmPassword);
+
+            if(password === confirmPassword){
+                localStorage.setItem('username', username);
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+                showLogin();
+            }else{
+                alert("Password and Confirm Password did not match!");
+            }            
+        }
+
+        document.getElementById('loginButton').addEventListener('click', Login);
+        document.getElementById('registerButton').addEventListener('click', Register);
+    </script>
+</body>
+</html>
